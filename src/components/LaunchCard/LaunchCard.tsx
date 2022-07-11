@@ -8,6 +8,7 @@ import StarRateOutlinedIcon from '@mui/icons-material/StarRateOutlined';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { removeLaunchFromFavourite, setLaunchInFavourite } from '../../utils';
+
 type LaunchProps = {
   launch: any
 };
@@ -17,10 +18,15 @@ const LaunchCard = ({ launch }: LaunchProps) => {
   const [rateFavourite, setRateFavourite] = useState(() => launch.favourite);
 
   useEffect(() => {
+    const anotherLaunch = {
+      ...launch,
+      favourite: rateFavourite
+    };
+
     if (rateFavourite) {
-      setLaunchInFavourite(launch);
+      setLaunchInFavourite(anotherLaunch);
     } else {
-      removeLaunchFromFavourite(launch);
+      removeLaunchFromFavourite(anotherLaunch);
     }
   }, [rateFavourite]);
 
@@ -36,14 +42,14 @@ const LaunchCard = ({ launch }: LaunchProps) => {
         component="img"
         height="194"
         image={launch?.rocket?.flickr_images[0]}
-        alt="Paella dish"
+        alt={launch?.mission_name}
       />
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {launch?.rocket?.rocket_name}
+          {launch?.mission_name}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-          {launch?.rocket?.description}
+          {launch?.details}
         </Typography>
       </CardContent>
       <CardActions>
@@ -52,7 +58,7 @@ const LaunchCard = ({ launch }: LaunchProps) => {
         </IconButton>
       </CardActions>
     </Card>
-  )
+  );
 };
 
 export default LaunchCard;

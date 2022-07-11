@@ -1,17 +1,29 @@
-// import { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import React, { useState } from 'react';
+import { 
+  AppBar, 
+  Box, 
+  Container, 
+  CssBaseline, 
+  Grid, 
+  Tabs, 
+  Tab, 
+  Toolbar, 
+  Typography} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TabPanel from './components/TabPanel/TabPanel';
 import Launches from './components/Launches/Launches';
+import FavouriteLaunches from './components/FavouriteLaunches/FavouriteLaunches';
+import { a11yProps } from './utils';
 import './App.css'
 
 const theme = createTheme();
 function App() {
+  const [panelView, setPanelVview] = useState<number>(0);
+
+  const handlePanelView = (event: React.SyntheticEvent, newValue: number) => {
+    setPanelVview(newValue);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -26,7 +38,18 @@ function App() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            <Launches />
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={panelView} onChange={handlePanelView} aria-label="basic tabs example">
+                <Tab label="Launches" {...a11yProps(0)} />
+                <Tab label="Favourites" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={panelView} index={0}>
+              <Launches />
+            </TabPanel>
+            <TabPanel value={panelView} index={1}>
+              <FavouriteLaunches />
+            </TabPanel>
           </Grid>
         </Container>
       </main>

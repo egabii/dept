@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import LaunchCard from '../LaunchCard/LaunchCard';
 import { Typography } from '@mui/material';
-import { getLaunchesFromFavourite } from '../../utils';
+import { getFavouriteLaunchesFromCache } from '../../utils';
 
 
 const FavouriteLaunches = () => {
   const [favouriteLaunches, setfavouriteLaunches] = useState([]);
 
   useEffect(() => {
-    const rateFavouriteLaunches = getLaunchesFromFavourite();
+    const rateFavouriteLaunches = getFavouriteLaunchesFromCache();
     setfavouriteLaunches(rateFavouriteLaunches);
   }, []);
 
@@ -19,7 +19,7 @@ const FavouriteLaunches = () => {
         favouriteLaunches.length > 0 && (
           <ul>
             {favouriteLaunches.map((launch: any) => <li>
-              <LaunchCard launch={launch} />
+              <LaunchCard key={launch?.flight_number} launch={launch} />
             </li>)}
           </ul>
         )
