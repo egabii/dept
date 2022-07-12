@@ -1,14 +1,14 @@
 
 export type StateType = {
   loading: boolean,
-  data: object,
+  data: null | object,
   complete: boolean,
-  error: any
+  error: null | object,
 };
 
 export const initialState: StateType = {
   loading: false,
-  data: {},
+  data: null,
   complete: false,
   error: null
 };

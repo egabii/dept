@@ -24,8 +24,11 @@ export const removeLaunchFromFavourite = (launch: any): void => {
 
 export const setLaunchInFavourite = (launch: any): void => {
   const allRecordedLaunches: Array<any> = getFavouriteLaunchesFromCache();
-  allRecordedLaunches.push(launch);
-  localStorage.setItem('launches', JSON.stringify(allRecordedLaunches));
+  const launchAlreadyRecorded = allRecordedLaunches.some(recordedLaunch => recordedLaunch.flight_number === launch.flight_number);
+  if (!launchAlreadyRecorded) {
+    allRecordedLaunches.push(launch);
+    localStorage.setItem('launches', JSON.stringify(allRecordedLaunches));
+  }
 }
 
 export const mergeLaunchWithRocket = (launch: any, rockets: Array<any>) => {
