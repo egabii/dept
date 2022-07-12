@@ -27,3 +27,10 @@ It will show you in which port the SPA is running. (it is often in port 3000)
   ├── reducers                # You will probably need some generic reducers. e.g fetchReducers
   ├── utils.ts                # functions you can share these accross application
 ```
+
+# UI Acceptance Criteria
+An UI should be developed using React that allows the user to:
+- List the latest launches - Done
+- Search a launch by name - Done
+- Inspect a specific launch detail - Not Done
+- Add a launch to the favorite list (use local storage) - Done
